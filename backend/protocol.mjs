@@ -8,6 +8,7 @@ import {
   MARKET_ID, toUnits, fromUnits, displayPrice, navQuote, ltvBps, healthBps, maxBorrow,
   START_PRICE, ProtocolError, fail, LIQ_BPS
 } from './math.mjs';
+import {fillCandleWindow, historyStart} from '../dist/chart-history.js';
 
 const marketColumns = 'id, base_symbol AS baseSymbol, quote_symbol AS quoteSymbol, price, oracle_time AS oracleTime, oracle_slot AS oracleSlot, base_cash AS baseCash, quote_cash AS quoteCash, quote_debt AS quoteDebt, base_shares AS baseShares, quote_shares AS quoteShares, debt_shares AS debtShares, borrow_index AS borrowIndex, last_accrual AS lastAccrual, paused, epoch, config_version AS configVersion';
 const walletColumns = 'wallet, base, quote, base_shares AS baseShares, quote_shares AS quoteShares, collateral, debt_shares AS debtShares, nonce';
@@ -403,6 +404,32 @@ function markCandles(from, end, ms, price) {
   return items;
 }
 
+function roundPrice(value) {
+  return Math.round(Number(value) * 1e6) / 1e6;
+}
+
+function anchorHistory(items, mark) {
+  const last = [...items].reverse().find(item => Number.isFinite(item.close));
+  if (!last || !Number.isFinite(mark)) return items;
+  const delta = mark - last.close;
+  return items.map(item => {
+    if (!Number.isFinite(item.close)) return item;
+    const open = roundPrice(item.open + delta);
+    const close = roundPrice(item.close + delta);
+    const high = roundPrice(item.high + delta);
+    const low = roundPrice(item.low + delta);
+    return {
+      time: item.time,
+      open,
+      high: Math.max(high, open, close),
+      low: Math.min(low, open, close),
+      close,
+      volume: Number(item.volume || 0),
+      price: close
+    };
+  });
+}
+
 export function listCandles(db, interval = '1h', now = Date.now(), options = {}) {
   const ms = {'5m': 300_000, '15m': 900_000, '1h': 3_600_000, '4h': 14_400_000, '1d': 86_400_000}[interval] || 3_600_000;
   const count = Math.max(12, Math.min(600, Math.round(Number(options.count) || 120)));
@@ -424,18 +451,32 @@ export function listCandles(db, interval = '1h', now = Date.now(), options = {})
     buckets.set(t, bucket);
   }
   const traded = [...buckets.values()].map(bucket => ({...bucket, price: bucket.close}));
-  if (traded.length) {
-    return {interval, from, end, earliest, hasMore: earliest != null && earliest < from, items: traded};
+  if (traded.length || earliest != null) {
+    const prior = db.prepare('SELECT price FROM trades WHERE created<? ORDER BY created DESC, id DESC LIMIT 1').get(from);
+    let prev = prior ? displayPrice(BigInt(prior.price)) : null;
+    const items = [];
+    for (let t = from; t <= end; t += ms) {
+      const hit = buckets.get(t);
+      if (hit) {
+        prev = hit.close;
+        items.push({...hit, price: hit.close});
+      } else if (prev != null) {
+        items.push({time: t, open: prev, high: prev, low: prev, close: prev, volume: 0, price: prev});
+      }
+    }
+    if (items.length) {
+      return {interval, from, end, earliest, hasMore: earliest != null && earliest < from, items};
+    }
   }
   const market = ensureProtocol(db, now);
   const mark = displayPrice(BigInt(market.price));
-  return {
-    interval,
-    from, end,
-    earliest: Number(market.oracleTime) || now,
-    hasMore: false,
-    items: markCandles(from, end, ms, mark)
-  };
+  const started = historyStart(now);
+  const history = anchorHistory(fillCandleWindow({from, end, ms, now, traded: []}), mark)
+    .filter(item => Number.isFinite(item.open) && Number.isFinite(item.close));
+  if (!history.length) {
+    return {interval, from, end, earliest: started, hasMore: false, items: markCandles(from, end, ms, mark)};
+  }
+  return {interval, from, end, earliest: started, hasMore: started < from, items: history};
 }
 
 export function refreshOracle(db, now, price = START_PRICE) {

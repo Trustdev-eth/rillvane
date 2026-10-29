@@ -1,5 +1,5 @@
-export const CHART_DEFAULTS=Object.freeze({upColor:'#c3d883',downColor:'#eda58e',chartBackground:'#112018',gridColor:'#40533b',axisColor:'#ffffff',candleBodies:true,candleBorders:true,candleWicks:true,hollowCandles:true,colorPrevious:false,horizontalGrid:true,verticalGrid:false,lastPrice:true});
-const KEY='rillvane.chart-appearance.v1',colors=['upColor','downColor','chartBackground','gridColor','axisColor'];
+export const CHART_DEFAULTS=Object.freeze({upColor:'#00ff6a',downColor:'#ff2d2d',chartBackground:'#112018',gridColor:'#40533b',axisColor:'#ffffff',candleBodies:true,candleBorders:true,candleWicks:true,hollowCandles:true,colorPrevious:false,horizontalGrid:true,verticalGrid:false,lastPrice:true});
+const KEY='rillvane.chart-appearance.v3',colors=['upColor','downColor','chartBackground','gridColor','axisColor'];
 export function sanitizeChartPreferences(value={}){
  const result={...CHART_DEFAULTS};
  for(const key of Object.keys(result))if(colors.includes(key)){if(typeof value[key]==='string'&&/^#[0-9a-f]{6}$/i.test(value[key]))result[key]=value[key].toLowerCase();}else if(typeof value[key]==='boolean')result[key]=value[key];

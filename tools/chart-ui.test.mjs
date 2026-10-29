@@ -58,7 +58,7 @@ test('appearance settings reject unsafe values and keep candle parts visible',()
 test('candle appearance switches modify the actual plotted elements',()=>{
  const asset=ASSETS.find(a=>a.symbol==='RLVN'),trades=sampleTrades(asset.price);
  const defaultChart=candleChart(asset,{chartWidth:800,chartHeight:420,trades});
- assert.match(defaultChart,/fill-opacity="0.08"/);assert.match(defaultChart,/data-part="wick"/);assert.match(defaultChart,/data-part="last-price"/);assert.ok(defaultChart.includes(`stroke="${CHART_DEFAULTS.upColor}"`));
+ assert.match(defaultChart,/fill-opacity="0.55"/);assert.match(defaultChart,/data-part="wick"/);assert.match(defaultChart,/data-part="last-price"/);assert.ok(defaultChart.includes(`stroke="${CHART_DEFAULTS.upColor}"`));
  const changed=candleChart(asset,{candleWicks:false,candleBodies:false,candleBorders:true,lastPrice:false,volume:false,horizontalGrid:false,verticalGrid:false,trades});
  assert.doesNotMatch(changed,/data-part="wick"|data-part="volume"|data-part="last-price"|class="chart-grid/);assert.match(changed,/fill="none" fill-opacity=/);
  assert.match(candleChart(asset,{hollowCandles:false,trades}),/fill-opacity="1"/);
