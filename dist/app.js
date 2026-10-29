@@ -3,6 +3,7 @@ import {initializeSiteLinks} from './site-links.js';
 import * as T from './vendor/three.module.js';
 import {loadBuffer} from './buffer.js';
 import {TitleSurface} from './title-surface.js';
+import {FogTrail} from './fog-trail.js';
 
 const $ = s => document.querySelector(s);
 initializeSiteLinks();
@@ -13,6 +14,7 @@ const envelope = (v,a,b,c,d) => fit(v,a,b)*(1-fit(v,c,d));
 let canvas = $('#landscape');
 const titleSurface=new TitleSurface($('#hero-title'),$('#title-surface'));
 const titlePointer={x:0,y:0,active:false};
+const summitFog=new FogTrail($('.summit-fog'));
 const camera = new T.PerspectiveCamera(29,1,1,5000);
 const titleCamera = new T.PerspectiveCamera(29,1,1,5000);
 const titlePoint = new T.Vector3();
@@ -278,6 +280,7 @@ function renderUI(unit,time,dt) {
   document.documentElement.classList.toggle('is-ending',ending>.8);
   titleEntry=unit<19.45?0:clamp(titleEntry+(unit>19.65?dt:-dt*3));
   sceneVisibility(6,fit(titleEntry,.05,.5));
+  summitFog.render({width,height,dt,pointer:titlePointer,visible:titleEntry>.05&&ending>.8});
   $('.chapter-nav').inert=ending>.8;
   $('.journey-footer').inert=ending>.8;
   ui['join-content'].style.transform=`translateY(${(1-fit(titleEntry,.15,.8))*25}px)`;

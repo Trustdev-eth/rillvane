@@ -49,6 +49,10 @@
 @media(max-width:767px){.hero h1{font-size:23vw;letter-spacing:-.045em}.hero-kicker{font-size:26px;padding:0 35px}.pool-subtitle{font-size:clamp(14px,3.8vw,19px);gap:.3em}.pool-description,.flows-description{font-size:16px;line-height:1.65;letter-spacing:0}.everyone-kicker{font-size:29px}.role h3,.role-lps h3{font-size:clamp(38px,10.2vw,55px)}.join-kicker{font-size:23px}.join-actions a{font-size:14px;padding:0 24px;min-height:50px}.menu-chapters button{font-size:37px}.body-copy br{display:none}}
 
 /* Contemporary, matte typography integrated with the landscape. */
+.summit-fog{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;filter:blur(10px)}
+.join-content{position:relative;z-index:1}
+.join footer{z-index:1}
+@media(prefers-reduced-motion:reduce),(pointer:coarse){.summit-fog{display:none}}
 .join-socials{display:flex;justify-content:center;align-items:center;max-width:100%;padding:0 8px;border-radius:60px;background:var(--lime);margin-top:28px;font:550 14px/1.3 DM,Arial,sans-serif;color:var(--green)}
 .join-socials a,.join-social-pending{display:inline-flex;align-items:center;justify-content:center;gap:20px;min-height:52px;padding:0 22px;color:var(--green);white-space:nowrap;position:relative}
 .join-socials>*+*:before{content:"";position:absolute;left:0;top:50%;height:18px;width:1px;background:#20372730;transform:translateY(-50%)}
