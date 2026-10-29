@@ -56,13 +56,17 @@ body{background-image:radial-gradient(ellipse at 86% 4%,#90a75006,transparent 45
   box-shadow:0 3px 10px #12291c18;
 }
 .secondary-button,.row-action,.icon-button,.order-percent button,
-.chart-tools button,.chart-navigation button,.max-button,.depth-toggle,
+.chart-navigation button,.max-button,.depth-toggle,
 #workspace-modal .modal-actions .secondary-button,#workspace-modal .modal-head .icon-button{
   background-image:var(--raised-gradient);box-shadow:inset 0 1px #a9bd830a;
 }
 .secondary-button:hover,.row-action:hover,.icon-button:hover,.order-percent button:hover,
 .chart-tools button:hover,.chart-navigation button:hover,.max-button:hover{
   background-image:linear-gradient(120deg,#466033,#425b31 55%,#3e572f);color:var(--text);
+}
+.chart-tools button.active,.chart-tools button.active:hover{
+  background-image:var(--meadow-gradient);background-color:var(--panel-hover);color:var(--text);
+  box-shadow:inset 0 1px #a9bd830a;
 }
 .primary-button:disabled,.order-submit:disabled,
 #workspace-modal .modal-actions button:disabled{
@@ -95,7 +99,7 @@ tbody tr:hover{background-image:linear-gradient(100deg,#bdd1780c,#9bbad404)}
 }
 .motion-indicator{background-image:linear-gradient(110deg,#dce8a018,#a9c56f0c)}
 .motion-indicator{background-color:var(--accent-soft)}
-.desk-tabs button.active,.chart-tools button.active,.tabs button.active,
+.desk-tabs button.active,.tabs button.active,
 .range-switch button.active,.credit-tabs button.active,.setting-pills button.active{
   background-color:var(--accent-soft);
 }

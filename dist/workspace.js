@@ -88,7 +88,11 @@ const pageHead=(title,description,actions='',eyebrow='YOUR WORKSPACE')=>`<div cl
 const MAX_LTV=.5,LIQUIDATION_LTV=.6;
 function chart(base,key,performance=false){
   if(!liveCandles.length && !performance) return `<div class="desk-empty"><strong>No price history yet</strong><p>Candles appear after swaps execute.</p></div>`;
-  const values=performance?[base,base]:liveCandles.map(c=>c.close);
+  const values=performance?[base,base]:liveCandles
+    .filter(c=>Number.isFinite(Number(c?.close))&&Number.isFinite(Number(c?.time)))
+    .sort((a,b)=>a.time-b.time)
+    .slice(-64)
+    .map(c=>Number(c.close));
   if(values.length<2) values.push(base,base);
   const mobile=innerWidth<768,w=mobile?380:900,h=mobile?188:250,left=2,right=w-(mobile?66:88),top=17,bottom=h-26,min=Math.min(...values)*.998,max=Math.max(...values)*1.002;
   const pts=values.map((v,i)=>[left+i/(values.length-1)*(right-left),bottom-(v-min)/(max-min||1)*(bottom-top)]);
@@ -163,7 +167,7 @@ function trade(){
   const a=currentMarket();
   return `<h1 class="sr-only">Spot trading terminal</h1>${marketStrip(a.symbol)}
  <section class="terminal-market-bar" aria-label="Current market"><button class="terminal-pair" data-action="market-selector">${pairIcons()}<span><strong>${a.symbol}<small> / USDC</small></strong><em>${a.name}</em></span>${icon('chevron-down')}</button><div class="terminal-mark"><strong data-live="mark-price">${a.price.toFixed(2)}</strong><small>Oracle · USDC</small></div><div class="market-bar-stat"><span>Inventory</span><strong data-live="inventory">${compact(a.liquidity)}</strong></div><div class="market-bar-stat"><span>Fee</span><strong>10 bps</strong></div></section>
- <div class="terminal-shell"><section class="panel terminal-chart" aria-label="Market chart"><div class="chart-toolbar"><div class="desk-tabs" role="tablist" aria-label="Chart interval">${['5m','15m','1h','4h','1d'].map(n=>`<button type="button" role="tab" data-action="chart-interval" data-value="${n}" class="${ui.interval===n?'active':''}" aria-pressed="${ui.interval===n}" aria-selected="${ui.interval===n}">${n}</button>`).join('')}</div><div class="chart-tools"><button data-action="chart-style" data-value="candles" class="${ui.chartStyle==='candles'?'active':''}">${icon('market')}</button><button data-action="chart-style" data-value="line" class="${ui.chartStyle==='line'?'active':''}">${icon('activity')}</button><button data-action="chart-volume" class="${ui.volume?'active':''}">Vol</button><button data-action="chart-settings">${icon('settings')}</button></div></div><div id="primary-chart" class="terminal-chart-content">${candleChart(a,{...ui,candles:chartSeries(),trades:liveTrades})}</div></section>
+ <div class="terminal-shell"><section class="panel terminal-chart" aria-label="Market chart"><div class="chart-toolbar"><div class="desk-tabs" role="tablist" aria-label="Chart interval">${['5m','15m','1h','4h','1d'].map(n=>`<button type="button" role="tab" data-action="chart-interval" data-value="${n}" class="${ui.interval===n?'active':''}" aria-pressed="${ui.interval===n}" aria-selected="${ui.interval===n}">${n}</button>`).join('')}</div><div class="chart-tools"><button type="button" data-action="chart-style" data-value="candles" class="${ui.chartStyle==='candles'?'active':''}" aria-pressed="${ui.chartStyle==='candles'}" aria-label="Candlestick chart" title="Candles">${icon('market')}</button><button type="button" data-action="chart-style" data-value="line" class="${ui.chartStyle==='line'?'active':''}" aria-pressed="${ui.chartStyle==='line'}" aria-label="Line chart" title="Line">${icon('activity')}</button><button type="button" data-action="chart-volume" class="${ui.volume?'active':''}" aria-pressed="${ui.volume}" aria-label="Volume">Vol</button><button type="button" data-action="chart-settings" aria-label="Chart settings">${icon('settings')}</button></div></div><div id="primary-chart" class="terminal-chart-content">${candleChart(a,{...ui,candles:chartSeries(),trades:liveTrades})}</div></section>
  ${ui.showBook?`<section class="panel terminal-book" id="terminal-book">${orderBook(a,ui.bookView,0.01,livePool,liveTrades)}</section>`:''}${terminalTicket(a)}
  <section class="panel terminal-blotter"><div class="desk-panel-head"><div class="desk-tabs">${[['positions','Balances'],['fills','Fills']].map(([v,n])=>`<button data-action="trade-extra" data-value="${v}" class="${ui.extra===v?'active':''}">${n}</button>`).join('')}</div></div><div class="blotter-content">${terminalBlotter()}</div></section></div>
  <div class="terminal-status"><span><i></i>${tokenMark('RLVN')} / ${tokenMark('USDC')}</span><span>Market exact-in · Oracle inventory pool</span><a href="#risk">Risk parameters ${icon('external')}</a></div>`;
@@ -578,7 +582,7 @@ initializeBackend({
   notify,
   interval:ui.interval,
   onStream:applyStream,
-  onMarket:(market,pool,trades,candles,interval)=>{livePool=pool;if(trades)liveTrades=trades;if(candles?.length&&ui.chartEnd==null&&ui.interval===(interval||'1h')){liveCandles=candles;liveCandleInterval=interval||'1h';}applyMarket(state,market,pool);patchLiveTerminal();}
+  onMarket:(market,pool,trades,candles,interval)=>{livePool=pool;if(trades)liveTrades=trades;if(candles?.length&&ui.chartEnd==null&&ui.interval===(interval||'1h')&&!streamConnected()){liveCandles=candles;liveCandleInterval=interval||'1h';}applyMarket(state,market,pool);patchLiveTerminal();}
 });
 window.addEventListener('rillvane:wallet-panel',e=>{openModal(`${modalHead('Wallet')}<div class="detail-rows">${detail('Address',escape(e.detail.wallet))}${detail('SOL',escape(e.detail.sol))}</div><div class="service-panel"><label for="chain-signature">Track a signature</label><input id="chain-signature" autocomplete="off" placeholder="Transaction signature"><button class="secondary-button full-button" id="track-chain-transaction" style="margin-top:12px">Track transaction</button><div id="chain-status" class="modal-note" role="status"></div><div id="chain-transactions" class="chain-list"></div></div>`);e.detail.mount($('#modal-content'));});
 document.addEventListener('rillvane:session',syncSessionHeader);

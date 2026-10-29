@@ -297,7 +297,13 @@ export async function initializeBackend({onAccount, notify, onMarket, onStream, 
     try{
       const health=await request('/api/health');
       if(!health.ok)throw new Error('API unavailable.');
-      const [markets,pool,trades,candles]=await Promise.all([fetchMarkets(),fetchPool(),fetchTrades(),fetchCandles(streamHandlers?.interval||interval||'1h')]);
+      const candleInterval=streamHandlers?.interval||interval||'1h';
+      const [markets,pool,trades,candles]=await Promise.all([
+        fetchMarkets(),
+        fetchPool(),
+        fetchTrades(),
+        streamLive?Promise.resolve({items:[],interval:candleInterval}):fetchCandles(candleInterval,{count:64})
+      ]);
       onMarket?.(markets.items[0],pool,trades.items||[],candles.items||[],candles.interval);
       setApiStatus('online');
       if(!streamStarted){streamStarted=true;connectMarketStream({onAccount,notify,onMarket,onStream,interval:interval||'1h'});}

@@ -12,6 +12,9 @@ test('historical candle requests return complete buckets, deterministic OHLC and
   const live=listCandles(db,'1h',now);
   assert.equal(live.items.at(-1).close,110);
   assert.ok(live.items.length>=1);
+  const wide=listCandles(db,'1h',now,{count:120});
+  const narrow=listCandles(db,'1h',now,{count:64});
+  assert.deepEqual(narrow.items.map(c=>c.close), wide.items.slice(-narrow.items.length).map(c=>c.close));
   assert.equal(live.earliest,old+1000);assert.equal(live.hasMore,true);
   const historical=listCandles(db,'1h',now,{end:old+5000,count:12});
   const printed=historical.items.find(item=>item.volume>0);
