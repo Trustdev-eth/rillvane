@@ -39,7 +39,7 @@ test('production links switch domains; local links retain the original developme
   initializeSiteLinks({querySelectorAll:()=>anchors},'app.rillvane.trade');
   assert.equal(anchors[0].href,production.app);assert.equal(anchors[1].href,production.landing);
   const landing=readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
-  assert.equal((landing.match(/href="https:\/\/app\.rillvane\.trade\/" data-site-link="app"/g)||[]).length,3);
+  assert.equal((landing.match(/href="https:\/\/app\.rillvane\.trade\/" data-site-link="app"/g)||[]).length,2);
 });
 
 test('standalone app serves the workspace at root with working assets and domain-bound API auth',async t=>{

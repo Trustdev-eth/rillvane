@@ -1,0 +1,25 @@
+// Isolated canvas checks; no configured backend, keys, or browser required.
+import assert from 'node:assert/strict';
+import {TitleSurface,titlePointerPosition} from '../dist/title-surface.js';
+const calls=[];
+const makeContext=()=>({setTransform(){},clearRect(){},measureText(){return {fontBoundingBoxAscent:160,fontBoundingBoxDescent:30}},createLinearGradient(){return {addColorStop(){}}},createRadialGradient(){calls.push('light');return {addColorStop(){}}},fillText(){},strokeText(){},save(){},restore(){},fillRect(){},beginPath(){},ellipse(){calls.push('ripple')},stroke(){},drawImage(...args){calls.push(args.length===9?'refraction':'still')}});
+const makeCanvas=()=>({width:0,height:0,style:{},getContext:makeContext,getBoundingClientRect:()=>({left:0,top:0,width:900,height:230})});
+globalThis.document={createElement:makeCanvas};
+globalThis.matchMedia=()=>({matches:false});
+globalThis.getComputedStyle=()=>({fontWeight:'600',fontSize:'200px',fontFamily:'DM',letterSpacing:'-11px',paddingLeft:'18px'});
+const canvas=makeCanvas(),surface=new TitleSurface({textContent:'Rillvane'},canvas);
+const options={width:900,height:230,dpr:2,matrix:'none',homography:[1,0,0,1,0,0,0,0],pointer:{active:false,x:450,y:100},dt:1/60,opacity:1};
+surface.render(options);assert.ok(calls.includes('still'));assert.equal(canvas.width,1800);
+calls.length=0;options.pointer.active=true;
+for(let i=0;i<40;i++)surface.render(options);
+for(const effect of ['light','ripple','refraction'])assert.ok(calls.includes(effect),effect+' renders');
+assert.ok(surface.ripples.length>0&&surface.ripples.length<=6);
+options.pointer.active=false;for(let i=0;i<180;i++)surface.render(options);
+assert.ok(surface.light<.001);assert.equal(surface.ripples.length,0);
+calls.length=0;surface.motion.matches=true;options.pointer.active=true;surface.render(options);
+assert.equal(surface.ripples.length,0);assert.ok(calls.includes('still'));assert.ok(!calls.includes('refraction'));
+assert.deepEqual(titlePointerPosition({x:110,y:220},[2,0,0,2,0,0,10,20],{},900,230),{x:50,y:100});
+const H=[1.2,.2,.1,1.1,.0003,.0005,30,40],x=330,y=120,w=H[4]*x+H[5]*y+1;
+const local=titlePointerPosition({x:(H[0]*x+H[1]*y+H[6])/w,y:(H[2]*x+H[3]*y+H[7])/w},H,{},900,230);
+assert.ok(Math.abs(local.x-x)<1e-8&&Math.abs(local.y-y)<1e-8);
+console.log('Passed: hover light, ripple/refraction, fade-out, reduced motion, pixel scaling and perspective cursor mapping.');
