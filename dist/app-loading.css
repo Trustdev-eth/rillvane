@@ -1,0 +1,13 @@
+/* Minimal app startup spinner. */
+.app-loader{position:fixed;inset:0;z-index:150;display:grid;place-content:center;background:var(--bg,#14251a);color:var(--text,#fff);padding:24px;opacity:1;transition:opacity .2s ease}
+.app-loader-content{text-align:center;max-width:100%}
+.app-loader-spinner{display:block;width:44px;height:44px;margin:0 auto;border:2px solid #d9efc81a;border-top-color:#dfffaa;border-right-color:#dfffaa70;border-radius:50%;animation:workspace-loading-spin .9s linear infinite}
+.app-loader-recovery{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:12px;margin-top:22px;font:400 12px/1.5 Manrope,DM,Arial,sans-serif;color:var(--muted,#c9d8c0)}
+.app-loader-recovery[hidden]{display:none}
+.app-loader-recovery button{color:var(--text,#fff);font:500 12px/1.5 Manrope,DM,Arial,sans-serif;text-decoration:underline;text-underline-offset:4px;padding:6px 0;min-height:36px}
+.app-loader.is-leaving{opacity:0;pointer-events:none}
+.app-loader.is-leaving .app-loader-spinner{animation:none}
+body[data-app-loading="true"]{overflow:hidden}
+body[data-app-loading="true"]>.skip-link{visibility:hidden}
+@keyframes workspace-loading-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.app-loader{transition:none}.app-loader-spinner{animation:none}}

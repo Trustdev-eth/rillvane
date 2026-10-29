@@ -1,5 +1,6 @@
 import {chartWindow,panChart,zoomChart} from './chart-navigation.js';
 import {initializeSiteLinks} from './site-links.js';
+import {initializeAppLoading} from './app-loading.js';
 import {captureMotion,finishRender,moveIndicator,animateChart,setBusy,showNotification,animateModal,initializeMotion} from './app-motion.js';
 import {candleChart,chartHover,orderBook,orderBookBody,marketStrip,paintLiveChart} from './market-ui.js';
 import {CHART_DEFAULTS,loadChartPreferences,saveChartPreferences,chartSettingsContent} from './chart-preferences.js';
@@ -8,6 +9,7 @@ import {ASSETS,VAULTS,INITIAL_STATE,asset,money,number,compact,accountTotals,app
 const $=s=>document.querySelector(s), escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const clone=v=>JSON.parse(JSON.stringify(v));
 initializeSiteLinks();
+const appLoading=initializeAppLoading();
 const NAV_EXPANDED_KEY='rillvane-nav-expanded';
 function readNavExpanded(){try{return localStorage.getItem(NAV_EXPANDED_KEY)!=='0';}catch{return false;}}
 let navMotionTimer;
@@ -583,7 +585,7 @@ initializeBackend({
   interval:ui.interval,
   onStream:applyStream,
   onMarket:(market,pool,trades,candles,interval)=>{livePool=pool;if(trades)liveTrades=trades;if(candles?.length&&ui.chartEnd==null&&ui.interval===(interval||'1h')&&!streamConnected()){liveCandles=candles;liveCandleInterval=interval||'1h';}applyMarket(state,market,pool);patchLiveTerminal();}
-});
+}).finally(appLoading.finish);
 window.addEventListener('rillvane:wallet-panel',e=>{openModal(`${modalHead('Wallet')}<div class="detail-rows">${detail('Address',escape(e.detail.wallet))}${detail('SOL',escape(e.detail.sol))}</div><div class="service-panel"><label for="chain-signature">Track a signature</label><input id="chain-signature" autocomplete="off" placeholder="Transaction signature"><button class="secondary-button full-button" id="track-chain-transaction" style="margin-top:12px">Track transaction</button><div id="chain-status" class="modal-note" role="status"></div><div id="chain-transactions" class="chain-list"></div></div>`);e.detail.mount($('#modal-content'));});
 document.addEventListener('rillvane:session',syncSessionHeader);
 document.addEventListener('rillvane:chain-update',()=>{refreshMarket();});
