@@ -36,9 +36,11 @@ let flowLayout = null;
 const menu = $('#chapter-menu'), tour = $('#tour-toggle');
 
 function progress(p) {
-  const v = Math.round(clamp(p)*100);
+  const track=$('.loader-line');
+  const v = Math.max(Number(track.getAttribute('aria-valuenow'))||0,Math.round(clamp(p)*100));
   $('#loader-percent').textContent = `${v}%`;
-  $('.loader-line i').style.width = `${v}%`;
+  track.setAttribute('aria-valuenow',String(v));
+  $('#loader').style.setProperty('--load-progress',String(v));
 }
 function show(el, amount, blur = 0) {
   amount = clamp(amount);
@@ -381,5 +383,5 @@ initialize().catch(error=>{
   console.error(error);
   $('#loader p').textContent='The journey could not load. Please try again.';
   $('#loader-percent').textContent='↻';
-  const retry=document.createElement('button');retry.className='pill';retry.textContent='Reload the journey';retry.addEventListener('click',()=>location.reload());$('#loader').append(retry);
+  const retry=document.createElement('button');retry.className='pill';retry.textContent='Reload the journey';retry.addEventListener('click',()=>location.reload());$('.loader-progress').append(retry);
 });
