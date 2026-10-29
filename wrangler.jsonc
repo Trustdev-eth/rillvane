@@ -1,0 +1,36 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "rillvane",
+  "main": "worker/origin.js",
+  "compatibility_date": "2026-10-29",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": true,
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    "SOLANA_RPC_URL": "https://rpc.magicblock.app/devnet",
+    "FAUCET_USDC": "10000",
+    "FAUCET_RLVN": "100"
+  },
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "RILLVANE_ORIGIN",
+        "class_name": "RillvaneOrigin"
+      }
+    ]
+  },
+  "exports": {
+    "RillvaneOrigin": {
+      "type": "durable-object",
+      "storage": "sqlite"
+    }
+  }
+}

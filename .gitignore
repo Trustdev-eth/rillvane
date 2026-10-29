@@ -1,0 +1,10 @@
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+.env
+node_modules/
+ops/keys/
+target/
+programs/**/target/
+
+output/

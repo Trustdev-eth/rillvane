@@ -1,0 +1,129 @@
+/* Subtle moss and blue-water gradients add a small amount of surface depth. */
+:root{
+  --surface-gradient:linear-gradient(135deg,#283c23 0%,#253922 42%,#233620 100%);
+  --raised-gradient:linear-gradient(135deg,#304527 0%,#2d4226 45%,#2a3e24 100%);
+  --inset-gradient:linear-gradient(135deg,#1a2d1d 0%,#182a1c 48%,#16281b 100%);
+  --chrome-gradient:linear-gradient(115deg,#20331e 0%,#1d301d 48%,#1b2d1c 100%);
+  --sun-gradient:linear-gradient(115deg,#3c552a 0%,#385127 48%,#354e25 100%);
+  --meadow-gradient:linear-gradient(115deg,#3d552a 0%,#3a5128 48%,#374d27 100%);
+  --water-gradient:linear-gradient(135deg,#314b3e 0%,#2e473b 48%,#2b4338 100%);
+  --sun-border:#71894e;
+  --sun-shadow:none;
+}
+
+/* Workspace chrome and navigation. The brand artwork is never filtered. */
+body{background-image:radial-gradient(ellipse at 86% 4%,#90a75006,transparent 45%)}
+.sidebar{background-image:linear-gradient(160deg,#21331e 0%,#1e301d 42%,#1b2d1c 100%)}
+.app-topbar,.mobile-bottom-nav{background-image:var(--chrome-gradient)}
+.main-nav a{background-image:linear-gradient(110deg,#b4cb6b00,#b4cb6b00)}
+.main-nav a:hover{background-image:linear-gradient(110deg,#9cb35d14,#5073440a)}
+.main-nav a[aria-current=page]{background-image:var(--meadow-gradient);border-color:var(--sun-border);box-shadow:inset 0 1px #9db66a0a;color:var(--text)}
+.main-nav a[aria-current=page]:after{background:var(--text)}
+.network-status,.header-balance,.account-button[data-connected]{background-image:var(--inset-gradient)}
+.backend-notice{background-image:linear-gradient(100deg,#695e3010,#293b22 45%,#263821)}
+
+/* Every card family shares a direction of light, with a brighter upper edge. */
+.panel,.summary-card,.vault-card,.credit-position,.scenario-panel,.risk-note,
+.allocation-panel,.quick-action,.projection,.route-node,.info-box,
+.landscape-market,.landscape-next,.landscape-allocation,.landscape-activity{
+  background-image:var(--surface-gradient);
+  border-color:color-mix(in srgb,var(--sun-border) 15%,var(--line-soft));
+  box-shadow:0 3px 12px #12291c08;
+}
+.landscape-summary-card{background-image:linear-gradient(120deg,color-mix(in srgb,var(--summary-accent) 3%,#293d22) 0%,#293d22 48%,#263a20 100%);box-shadow:0 3px 12px #152a1d12}
+.landscape-summary-card:nth-child(3){background-image:var(--water-gradient)}
+.landscape-summary-card:hover{background-image:var(--raised-gradient);box-shadow:0 3px 12px #152a1d12}
+.landscape-next .quick-action{background-image:var(--raised-gradient)}
+.landscape-next .quick-action:nth-child(3){background-image:var(--water-gradient)}
+.landscape-market-head,.landscape-activity .panel-heading{background-image:linear-gradient(105deg,#a7c05b08,transparent 78%)}
+.landscape-next .quick-action{background-image:var(--raised-gradient);border-color:#607b44}
+.landscape-next .quick-action:nth-child(3){background-image:var(--water-gradient);border-color:#587668}
+.landscape-next .quick-action:hover{background-image:linear-gradient(120deg,#466033,#425b31 60%,#3e572f)}
+.landscape-summary-icon,.landscape-next .quick-icon{filter:none}
+.allocation-bar,.meter,.utilization-bar,.ltv-track{background-image:var(--inset-gradient)}
+.allocation-bar>span,.meter>span,.utilization-bar>span{background-image:linear-gradient(90deg,#bed38a08,transparent)}
+
+/* Slightly deeper moss keeps white button labels readable. */
+.primary-button:not(:disabled),#header-account:not([data-connected]),
+#workspace-modal .modal-actions .primary-button:not(:disabled){
+  background-image:var(--sun-gradient);background-color:var(--panel-hover);
+  color:var(--text);border-color:#6c894e;
+  box-shadow:0 2px 8px #12291c12;
+}
+.primary-button:hover:not(:disabled),#header-account:not([data-connected]):hover,
+#workspace-modal .modal-actions .primary-button:hover:not(:disabled){
+  background-image:linear-gradient(115deg,#4e6c37,#4a6834 48%,#476532);color:var(--text);
+  box-shadow:0 3px 10px #12291c18;
+}
+.secondary-button,.row-action,.icon-button,.order-percent button,
+.chart-tools button,.chart-navigation button,.max-button,.depth-toggle,
+#workspace-modal .modal-actions .secondary-button,#workspace-modal .modal-head .icon-button{
+  background-image:var(--raised-gradient);box-shadow:inset 0 1px #a9bd830a;
+}
+.secondary-button:hover,.row-action:hover,.icon-button:hover,.order-percent button:hover,
+.chart-tools button:hover,.chart-navigation button:hover,.max-button:hover{
+  background-image:linear-gradient(120deg,#466033,#425b31 55%,#3e572f);color:var(--text);
+}
+.primary-button:disabled,.order-submit:disabled,
+#workspace-modal .modal-actions button:disabled{
+  background-image:var(--inset-gradient);box-shadow:inset 0 1px #a9bd8306;
+}
+.quick-icon,.activity-icon,.account-avatar,.landscape-summary-arrow{
+  background-image:linear-gradient(140deg,#a9bd8308,#89ac5706);
+}
+.account-avatar{background-color:var(--panel);background-image:var(--raised-gradient)}
+.account-avatar:after{color:var(--text)}
+
+/* Inputs, tickets and detail surfaces retain a dark reading area. */
+input:not([type=checkbox]):not([type=range]):not([type=color]),select,.search-field,
+.desk-field>div,.ticket-output,.detail-rows,.execution-details,.ticket-account,
+#workspace-modal input:not([type=checkbox]):not([type=range]):not([type=color]),
+#workspace-modal select,#workspace-modal .detail-rows{
+  background-image:var(--inset-gradient);
+}
+input:not([type=checkbox]):not([type=range]):not([type=color]):focus,select:focus,
+.desk-field>div:focus-within,.search-field:focus-within{
+  border-color:#c1d881;box-shadow:0 0 0 3px #b6cf6f1c;
+}
+.desk-panel-head,.chart-toolbar,.market-toolbar,.table-toolbar,th{
+  background-image:var(--chrome-gradient)!important;
+}
+.search-field input{background-image:none}
+tbody tr:hover{background-image:linear-gradient(100deg,#bdd1780c,#9bbad404)}
+.trade-side,.tabs,.credit-tabs,.setting-pills,.range-switch,.order-type-tabs{
+  background-image:linear-gradient(120deg,#172f2330,#304a2b24);
+}
+.motion-indicator{background-image:linear-gradient(110deg,#dce8a018,#a9c56f0c)}
+.motion-indicator{background-color:var(--accent-soft)}
+.desk-tabs button.active,.chart-tools button.active,.tabs button.active,
+.range-switch button.active,.credit-tabs button.active,.setting-pills button.active{
+  background-color:var(--accent-soft);
+}
+.trade-side .motion-indicator{background-image:linear-gradient(110deg,#c3d88314,#709d4c08)}
+.trade-side:has(.sell.active) .motion-indicator{background-image:linear-gradient(110deg,#eda58e14,#b8756608)}
+.badge,.setting-pills button,.chart-pref-layout nav button,.chain-row{
+  background-image:linear-gradient(125deg,#b4cc710c,#45663c0a);
+}
+input[type=checkbox],#workspace-modal input[type=checkbox]{background-image:var(--inset-gradient)}
+input[type=checkbox]:checked,#workspace-modal input[type=checkbox]:checked{background-image:var(--meadow-gradient)}
+input[type=checkbox]:checked:after,#workspace-modal input[type=checkbox]:checked:after{background:var(--text)}
+.toast-mark{background-image:linear-gradient(135deg,#c3d88310,#7c9c4f08)}
+.app-toast{background-image:var(--raised-gradient);border-color:#8aa85d}
+.toast-progress{background-image:var(--meadow-gradient)}
+
+/* Dialogs use the same materials as the workspace beneath them. */
+#workspace-modal{background-image:var(--surface-gradient);border-color:#82995c}
+#workspace-modal .modal-head,#workspace-modal .modal-actions{background-image:var(--chrome-gradient)}
+#workspace-modal .modal-body{background-image:var(--surface-gradient)}
+#workspace-modal .credit-tabs,#workspace-modal .setting-pills,
+#workspace-modal .asset-picker-row,#workspace-modal .account-tools button{
+  background-image:var(--inset-gradient);
+}
+#workspace-modal .asset-picker-row:hover{background-image:var(--raised-gradient)}
+#workspace-modal .credit-tabs .motion-indicator,#workspace-modal .setting-pills .motion-indicator{background-image:linear-gradient(110deg,#dce8a018,#a9c56f0c)}
+
+/* Text stays white; gradients belong to component surfaces. */
+.landscape-hero-value,.landscape-summary-card .stat-value,.balance-amount,
+.terminal-mark>strong,.landscape-market .market-price>strong{
+  background-image:none;color:var(--text);
+}

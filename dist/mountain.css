@@ -1,0 +1,155 @@
+/* The landscape is decorative. Account values, market data and controls remain HTML. */
+.sidebar{isolation:isolate;background:linear-gradient(180deg,var(--chrome),var(--bg) 65%)}
+.sidebar:before{content:"";position:absolute;inset:auto 0 0;height:300px;z-index:-1;pointer-events:none;background:linear-gradient(180deg,var(--bg),transparent 70%),url('/assets/landscape/landing-valley-small-v2.webp') 29% bottom/auto 100% no-repeat;opacity:.4}
+.app-brand img{filter:none}
+.app-topbar{background:color-mix(in srgb,var(--bg) 88%,var(--panel-raised));border-color:var(--line-soft)}
+.main-nav a[aria-current=page]{background:linear-gradient(110deg,#c3d18f,#a5b56b);color:var(--accent-ink);box-shadow:inset 0 0 0 1px #e9eddf40}
+.main-nav a[aria-current=page]:after{background:var(--accent-ink)}
+.primary-button,#header-account:not([data-connected]){font-weight:700}
+.primary-button:not(:disabled),#header-account:not([data-connected]){background:var(--surface-highlight);color:var(--accent-ink);border-color:var(--accent);box-shadow:0 2px 10px #14291e18}
+.primary-button:hover:not(:disabled),#header-account:not([data-connected]):hover{background:var(--accent-hover);color:var(--accent-ink);box-shadow:0 3px 14px #14291e24}
+.workspace-footer{font-size:10px;line-height:1.7}
+body[data-backend-status=connecting] .network-status .status-dot{background:var(--amber)}
+body[data-backend-status=offline] .network-status .status-dot{background:var(--negative)}
+body[data-backend-status=online] .network-status .status-dot{background:var(--positive)}
+.backend-notice{padding:11px 20px;border-bottom:1px solid var(--line);background:var(--panel-raised);color:var(--muted);font-size:11px;line-height:1.6}
+.backend-notice[hidden]{display:none}
+.page-head{position:relative;isolation:isolate;min-height:152px;align-items:center;padding:26px 28px;border:1px solid var(--line-soft);border-radius:12px;overflow:hidden;background:var(--bg)}
+.page-head:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,var(--bg) 24%,color-mix(in srgb,var(--bg) 85%,transparent) 58%,color-mix(in srgb,var(--bg) 25%,transparent)),url('/assets/landscape/landing-valley-small-v2.webp') right 44%/cover no-repeat}
+.page-head h1{font-size:clamp(27px,2.4vw,36px)}
+.page-head p{max-width:62ch;font-size:12px;line-height:1.7;color:var(--muted)}
+.page-head .eyebrow{color:var(--accent);font-size:9px}
+.page-head .head-actions{position:relative;z-index:1}
+.terminal-market-bar{position:relative;isolation:isolate;overflow:hidden;background:var(--panel)}
+.terminal-market-bar:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.24;background:linear-gradient(90deg,var(--panel) 34%,transparent),url('/assets/landscape/landing-valley-small-v2.webp') right 40%/cover no-repeat}
+.terminal-market-bar .terminal-pair,.terminal-market-bar .terminal-mark,.terminal-market-bar .market-bar-stat{position:relative}
+.chart-focus .terminal-market-bar:before{display:none}
+body[data-page=overview] #main-content{max-width:none;padding:0;min-width:0}
+.landscape-overview{min-width:0}
+.landscape-hero{position:relative;isolation:isolate;min-height:358px;display:flex;align-items:center;overflow:hidden;background:var(--bg);border-bottom:1px solid var(--line-soft)}
+.landscape-hero-art{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:66% 50%;pointer-events:none}
+.landscape-hero:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#14251ab3 0%,#14251a70 25%,#14251a14 50%,transparent 72%),linear-gradient(0deg,var(--bg),transparent 24%);pointer-events:none}
+.landscape-hero-copy{position:relative;width:min(57%,570px);padding:38px 40px 42px}
+.landscape-hero .eyebrow{color:var(--accent);font-size:9px;letter-spacing:.2em;margin-bottom:14px}
+.landscape-hero h1{font:550 clamp(30px,3vw,45px)/1.15 Manrope,DM,Arial,sans-serif;letter-spacing:-.055em;color:var(--text);text-wrap:balance}
+.landscape-hero-value{font:500 clamp(34px,3.3vw,48px)/1.1 Manrope,DM,Arial,sans-serif;letter-spacing:-.05em;margin-top:25px;color:var(--text);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.landscape-hero-label{font-size:12px;color:var(--muted);margin-top:7px}
+.landscape-hero-signature{position:absolute;right:28px;bottom:21px;font-size:9px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.landscape-content{max-width:1720px;margin:0 auto;padding:18px 24px 32px;min-width:0}
+.landscape-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:18px}
+.landscape-summary-card{--summary-accent:var(--positive);position:relative;isolation:isolate;display:flex;gap:14px;min-height:112px;padding:22px 20px;overflow:hidden;border:1px solid color-mix(in srgb,var(--summary-accent) 38%,var(--line-soft));border-radius:10px;background:linear-gradient(115deg,color-mix(in srgb,var(--summary-accent) 18%,var(--panel)),var(--panel));box-shadow:inset 0 1px color-mix(in srgb,var(--summary-accent) 18%,transparent)}
+.landscape-summary-card:nth-child(2){--summary-accent:#d3d89b}
+.landscape-summary-card:nth-child(3){--summary-accent:var(--allocation-credit)}
+.landscape-summary-card:after{content:"";position:absolute;inset:0 0 0 34%;z-index:-1;pointer-events:none;opacity:.68;background:linear-gradient(90deg,var(--panel),transparent 75%),url('/assets/landscape/landing-valley-small-v2.webp') 70% 36%/auto 160% no-repeat;mask-image:linear-gradient(180deg,transparent,#000 70%)}
+.landscape-summary-card:nth-child(2):after{background-position:0 0,54% 37%}
+.landscape-summary-card:nth-child(3):after{background-position:0 0,95% 56%}
+.landscape-summary-icon{color:var(--summary-accent);padding-top:2px;flex:none}
+.landscape-summary-card>div{min-width:0;flex:1}
+.landscape-summary-icon svg{width:23px;height:23px;stroke-width:1.4}
+.landscape-summary-card .stat-label{font-size:11px;color:var(--muted);display:block;margin-bottom:6px}
+.landscape-summary-card .stat-value{font:550 clamp(21px,2vw,29px)/1.2 Manrope,DM,Arial,sans-serif;letter-spacing:-.045em;overflow-wrap:anywhere}
+.landscape-summary-card .stat-note{font-size:9px;margin-top:5px;color:var(--muted)}
+.landscape-summary-arrow{margin-left:auto;flex:none;align-self:flex-start;display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:color-mix(in srgb,var(--text) 4%,transparent);color:var(--muted)}
+.landscape-summary-arrow svg{width:13px;height:13px}
+.landscape-summary-card:hover{border-color:color-mix(in srgb,var(--accent) 35%,var(--line));background:var(--panel-raised)}
+.landscape-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;align-items:start;gap:18px;min-width:0}
+.landscape-market,.landscape-next,.landscape-allocation,.landscape-activity{border-radius:11px;border-color:var(--line-soft);background:linear-gradient(145deg,var(--panel-raised),var(--panel) 55%,color-mix(in srgb,var(--bg) 40%,var(--panel)))}
+.landscape-market{min-width:0;overflow:hidden}
+.landscape-market-head{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:21px 24px 0}
+.landscape-market-head h2,.landscape-next h2{font-size:19px;font-weight:600;letter-spacing:-.035em}
+.landscape-market-head p{font-size:10px;color:var(--muted);margin-top:5px}
+.landscape-market-head .secondary-button{min-height:31px;padding:6px 10px;font-size:10px;white-space:nowrap;background:var(--bg)}
+.landscape-market .market-price{padding:14px 24px 0;font:500 28px/1.3 Manrope,DM,Arial,sans-serif;letter-spacing:-.045em}
+.landscape-market .market-price span{font:400 10px/1.5 Manrope,DM,Arial,sans-serif;letter-spacing:0;color:var(--muted);margin-left:8px}
+.landscape-market-chart{padding:4px 24px 0;min-height:194px}
+.landscape-market-chart .chart-container{height:205px;margin:0}
+.landscape-market-chart .chart-container svg{width:100%;height:100%}
+.landscape-market-chart .desk-empty{min-height:194px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:8px;background:none}
+.landscape-market-chart .desk-empty strong{font-size:13px;font-weight:500;color:var(--muted)}
+.landscape-market-chart .desk-empty p{font-size:11px;color:var(--dim)}
+.landscape-market th{font-size:9px;padding-top:13px;padding-bottom:13px}
+.landscape-market td{font-size:11px;padding-top:14px;padding-bottom:14px}
+.landscape-market .asset-cell p{font-size:9px}
+.landscape-market .asset-cell strong{font-size:12px}
+.landscape-market .row-action{font-size:10px;padding:6px 9px;white-space:nowrap}
+.landscape-side{display:grid;gap:18px;min-width:0}
+.landscape-next{position:relative;isolation:isolate;padding:21px 18px 25px;overflow:hidden}
+.landscape-next:after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,var(--panel) 45%,transparent),url('/assets/landscape/landing-valley-small-v2.webp') 0 bottom/auto 210px no-repeat;opacity:.3}
+.landscape-next h2{padding:0 4px 18px}
+.landscape-next .quick-actions{display:grid;grid-template-columns:1fr;gap:9px;margin:0}
+.landscape-next .quick-action{border:1px solid var(--line);border-radius:8px;background:color-mix(in srgb,var(--panel-raised) 85%,transparent);padding:14px 13px;min-height:66px;gap:12px;flex-direction:row;align-items:center;text-align:left}
+.landscape-next .quick-action:hover{background:var(--panel-hover);border-color:var(--dim)}
+.landscape-next .quick-icon{height:27px;width:27px;background:none;color:var(--positive)}
+.landscape-next .quick-action:nth-child(2) .quick-icon{color:var(--accent)}
+.landscape-next .quick-action:nth-child(3) .quick-icon{color:var(--allocation-credit)}
+.landscape-next .quick-icon svg{height:22px;width:22px}
+.landscape-next .quick-action strong{font-size:11px;line-height:1.5;font-weight:600}
+.landscape-next .quick-action p{font-size:9px;line-height:1.6;margin-top:3px;display:block;color:var(--muted)}
+.landscape-next .quick-action>i{color:var(--muted);margin-left:auto}
+.landscape-next .quick-action>i svg{width:14px;height:14px}
+.landscape-allocation{padding:20px;display:block}
+.landscape-allocation .allocation-title{font-size:11px}
+.landscape-allocation .allocation-total{font:500 25px/1.4 Manrope,DM,Arial,sans-serif;letter-spacing:-.04em;margin-top:5px}
+.landscape-allocation .allocation-bar{height:5px;margin:18px 0}
+.landscape-allocation .allocation-legend{gap:10px}
+.landscape-allocation .legend-row{font-size:10px;gap:12px}
+.landscape-allocation .allocation-foot{font-size:10px;margin-top:18px;padding-top:15px}
+.landscape-activity{margin-top:18px}
+.landscape-activity .panel-heading{margin:0;padding:19px 24px;border-bottom:1px solid var(--line-soft)}
+.landscape-activity h2{font-size:15px}
+.landscape-activity .empty-state{padding:27px 24px;font-size:11px;line-height:1.8}
+.landscape-activity .empty-state strong{font-size:12px}
+@media(min-width:1800px){.landscape-hero{min-height:420px}.landscape-hero-copy{padding-left:52px}.landscape-content{padding-top:24px}.landscape-grid{grid-template-columns:minmax(0,1fr) 340px}}
+@media(min-width:768px){.app-brand{gap:10px}.app-brand img{width:24px;height:24px}.main-nav a{min-height:43px}.sidebar .app-brand>span{font-size:24px}.sidebar:before{transition:opacity .2s}html:not(.nav-expanded) .sidebar:before{opacity:.12}}
+@media(min-width:768px) and (max-width:1100px){.landscape-grid{grid-template-columns:minmax(0,1fr) 260px}.landscape-content{padding:16px}.landscape-hero-copy{padding-left:28px;width:58%}.landscape-summary-card{padding:19px 14px;gap:10px}.landscape-summary-arrow{display:none}.landscape-summary-icon svg{width:20px}.landscape-market-head{padding:20px 18px 0}.landscape-market-chart{padding-left:18px;padding-right:18px}.landscape-market th,.landscape-market td{padding-left:13px;padding-right:13px}.landscape-next{padding-left:13px;padding-right:13px}.landscape-next .quick-action p{display:none}}
+@media(max-width:960px){.landscape-grid{grid-template-columns:minmax(0,1fr)}.landscape-side{grid-template-columns:1fr 1fr}.landscape-hero{min-height:330px}.landscape-hero-copy{width:64%}.landscape-market-chart .chart-container{height:210px}}
+@media(max-width:767px){
+ .page-head{min-height:150px;padding:22px 19px;gap:18px;align-items:flex-start}
+ .page-head:before{background-position:0 0,70% center}
+ .page-head p{font-size:11px;max-width:34ch}
+ .page-head .eyebrow{font-size:8px}
+ .page-head.with-actions{flex-wrap:wrap}
+ .page-head .head-actions{gap:7px}
+ .page-head .head-actions a,.page-head .head-actions button{font-size:11px;min-height:35px;padding:8px 11px}
+ .sidebar:before{height:240px;opacity:.3}
+ .landscape-hero{min-height:350px;align-items:flex-end}
+ .landscape-hero-art{object-position:61% 50%}
+ .landscape-hero:after{background:linear-gradient(0deg,var(--bg) 0%,#14251acc 24%,#14251a66 58%,#14251a14),linear-gradient(90deg,#14251a4d,transparent)}
+ .landscape-hero-copy{width:100%;padding:120px 22px 29px}
+ .landscape-hero .eyebrow{font-size:8px;margin-bottom:10px}
+ .landscape-hero h1{font-size:32px;line-height:1.14;max-width:330px}
+ .landscape-hero-value{font-size:36px;margin-top:17px}
+ .landscape-hero-label{font-size:10px}
+ .landscape-hero-signature{display:none}
+ .landscape-content{padding:13px 14px 30px}
+ .landscape-summary{gap:8px;margin-bottom:14px}
+ .landscape-summary-card{min-height:115px;flex-direction:column;gap:7px;padding:12px 10px}
+ .landscape-summary-card:after{inset:0 0 0 10%;opacity:.48}
+ .landscape-summary-icon{padding:0}
+ .landscape-summary-icon svg{height:18px;width:18px}
+ .landscape-summary-card .stat-label{font-size:9px;line-height:1.4;margin-bottom:5px;min-height:13px}
+ .landscape-summary-card .stat-value{font-size:clamp(13px,4.2vw,18px);letter-spacing:-.06em}
+ .landscape-summary-card .stat-note{display:none}
+ .landscape-summary-arrow{display:none}
+ .landscape-grid,.landscape-side{grid-template-columns:minmax(0,1fr);gap:14px}
+ .landscape-market-head{padding:18px 16px 0;gap:8px}
+ .landscape-market-head h2,.landscape-next h2{font-size:18px}
+ .landscape-market-head p{font-size:9px}
+ .landscape-market-head .secondary-button{font-size:9px;padding:6px 8px;gap:5px}
+ .landscape-market-head .secondary-button svg{width:13px;height:13px}
+ .landscape-market .market-price{padding:13px 16px 0;font-size:25px}
+ .landscape-market .market-price span{font-size:9px;margin-left:6px}
+ .landscape-market-chart{padding:5px 14px 0;min-height:160px}
+ .landscape-market-chart .chart-container{height:175px}
+ .landscape-market-chart .desk-empty{min-height:160px;padding:16px 0}
+ .landscape-market th,.landscape-market td{padding-left:13px;padding-right:13px}
+ .landscape-next{padding:19px 16px}
+ .landscape-next .quick-action{min-height:65px;padding:13px}
+ .landscape-next .quick-action p{display:block}
+ .landscape-allocation{padding:20px}
+ .landscape-activity{margin-top:14px}
+ .landscape-activity .panel-heading{padding:17px 16px}
+ .landscape-activity .text-button{font-size:10px}
+ .terminal-market-bar{border-radius:10px}
+}
+@media(prefers-reduced-motion:reduce){.sidebar:before{transition:none}}

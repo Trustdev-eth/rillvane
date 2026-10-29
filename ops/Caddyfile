@@ -1,0 +1,8 @@
+# Replace app.example.com with your domain. Forwarded IP headers are deliberately
+# ignored by the app; configure separate edge abuse controls for visitor fairness.
+app.example.com {
+    encode zstd gzip
+    @ops path /api/ops/* /livez /readyz
+    respond @ops 404
+    reverse_proxy 127.0.0.1:8787
+}

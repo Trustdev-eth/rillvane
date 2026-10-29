@@ -1,0 +1,24 @@
+services:
+  app:
+    build:
+      context: ..
+    init: true
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: [/tmp:size=16m,mode=1777]
+    ports: [127.0.0.1:8787:8787]
+    volumes: [rillvane-data:/data]
+    environment:
+      PUBLIC_ORIGIN: ${PUBLIC_ORIGIN:?Set the exact HTTPS origin}
+      OPS_TOKEN: ${OPS_TOKEN:?Set a random operator token of at least 32 characters}
+      EXECUTION_MODE: protocol
+      SOLANA_RPC_URLS: ${SOLANA_RPC_URLS:?Set one or two dedicated HTTPS RPC URLs}
+      REGISTRY_PATH: /data/registry.json
+      WORKER_ENABLED: "true"
+    mem_limit: 512m
+    cpus: 1
+    stop_grace_period: 120s
+volumes:
+  rillvane-data:

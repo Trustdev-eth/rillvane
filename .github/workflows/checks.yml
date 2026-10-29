@@ -1,0 +1,16 @@
+name: Verify app and devnet service
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm run check
+      - run: npm run test:ui
+      - run: npm run test:backend
+      - run: npm run check:shaders

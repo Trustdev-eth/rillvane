@@ -1,0 +1,21 @@
+{
+  "market": "rlvn-usdc",
+  "programId": "2GZypcHMjRrfrjimxkB5G4wcisj9MFZpns9gSSZbfrt4",
+  "baseMint": "GHKc9Vigvn5murV4Bhf9QXni3m9yHkbMZS6Se6FtmZDb",
+  "quoteMint": "EKPDcTuqQeC6Vq9KttEm3gKo8ZiDmVnM4XjPQPd7jyM3",
+  "baseVault": "E3s7qHhsFFPXgsckHceWg3m6Uh9rRdH14H9aNMWkjZEC",
+  "quoteVault": "979jMp9H3JCX924JkwJkD6SQkvcfvy8VrXgaoGj4JeCz",
+  "oracle": "AZDp42RCx2fsYYHtqFfBU4hhqDXN1xg5zu2T7m2bVk4Q",
+  "config": "7ypfkyPgfMmkiAui3pauUZpYLhKcTpyDRAoyDgXvareW",
+  "price": "100000000",
+  "decimals": 6,
+  "authorities": {
+    "upgrade": "H3eVzoeehV9g7cefMokjHbx1CjTE16cFncccK3jNRQd8",
+    "oracle": "ACBqixWe35k7XCSrLmwg9MWb3Zm82QqT2UCYwPAu3oiL",
+    "faucet": "CZQBbi6Vh6bL4vt8pTALbVynHwYytvPVGQe7EpznYFtU",
+    "keeper": "3KS4MU13zQeMR4tcwLPJBNUgVXd5Kbhw4vbS7itZEqwt"
+  },
+  "rpcUrl": "https://api.devnet.solana.com",
+  "seeded": true,
+  "marketAccount": "CuB3DTHwqLTSzcWZtF7WHPt4fgCto8kdjsXcUZJa9BaG"
+}

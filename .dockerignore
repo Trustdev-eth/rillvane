@@ -1,0 +1,16 @@
+.git
+.gitignore
+**/*.sqlite
+**/*.sqlite-shm
+**/*.sqlite-wal
+node_modules
+ops/keys
+programs
+target
+.env
+.env.*
+!.env.example
+backups
+agent-transcripts
+**/.openai
+*.log
