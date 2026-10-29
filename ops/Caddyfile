@@ -1,8 +1,18 @@
-# Replace app.example.com with your domain. Forwarded IP headers are deliberately
-# ignored by the app; configure separate edge abuse controls for visitor fairness.
-app.example.com {
+# This example assumes the checkout is /srv/rillvane and Caddy runs on the VPS.
+# Point both DNS names at the VPS before enabling this configuration.
+rillvane.trade {
+    encode zstd gzip
+    @old_app path /app /app/*
+    redir @old_app https://app.rillvane.trade{uri} 308
+    root * /srv/rillvane/dist
+    file_server
+}
+
+app.rillvane.trade {
     encode zstd gzip
     @ops path /api/ops/* /livez /readyz
     respond @ops 404
+    # PUBLIC_ORIGIN=https://app.rillvane.trade and SITE_MODE=app on Node.
+    # Caddy preserves Host/Origin and proxies WebSocket upgrades automatically.
     reverse_proxy 127.0.0.1:8787
 }

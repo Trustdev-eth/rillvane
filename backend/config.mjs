@@ -1,4 +1,5 @@
 import {resolve, isAbsolute} from 'node:path';
+import {resolveSiteMode} from './site-routing.mjs';
 
 export const CLUSTER_GENESIS = 'EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG';
 
@@ -21,6 +22,7 @@ export function loadConfig(env = process.env) {
   }
   if (production && origin.protocol !== 'https:') throw new Error('Production requires an HTTPS PUBLIC_ORIGIN.');
   if (!['http:', 'https:'].includes(origin.protocol)) throw new Error('Invalid PUBLIC_ORIGIN protocol.');
+  const siteMode = resolveSiteMode(origin.origin, env.SITE_MODE);
   const cluster = env.SOLANA_CLUSTER || 'solana';
   if (cluster === 'mainnet-beta' || cluster === 'mainnet') throw new Error('Mainnet is not enabled.');
   if ((env.EXECUTION_MODE || 'protocol') !== 'protocol') {
@@ -47,6 +49,7 @@ export function loadConfig(env = process.env) {
   return {
     production,
     origin: origin.origin,
+    siteMode,
     rpcUrls,
     opsToken,
     dbPath: resolve(env.DATABASE_PATH || 'rillvane.sqlite'),

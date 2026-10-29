@@ -93,4 +93,6 @@ The Node origin includes migrations, durable rate buckets, audit records, operat
 
 ## Connected frontend and backend
 
+For VPS hosting, use [the VPS setup guide](docs/VPS_HOSTING.md). The landing page runs at `https://rillvane.trade/`; the app opens directly at `https://app.rillvane.trade/`, with its API and WebSocket on the same app origin. `ops/Caddyfile`, `ops/vps.env.example` and `ops/rillvane.service` provide the configuration. Local development retains `/app/`.
+
 The local mountain UI now uses the same-origin protocol API, wallet sessions, signed quotes/intents, and live market stream. Start the combined server with `npm run dev`; the default app URL is `http://localhost:8787/app/`. The combined Worker deployment is `https://rillvane.onchainme.workers.dev/app/`. See [frontend/backend integration](docs/FRONTEND_BACKEND.md) for setup, build, deployment, and verification.

@@ -27,6 +27,10 @@ Transaction decoding follows the [Solana v1 transaction API](https://solana-foun
 
 ## Deployment
 
+For the VPS and custom-domain setup, follow [VPS hosting](VPS_HOSTING.md): Caddy serves the landing domain and proxies `app.rillvane.trade` to Node. Set `PUBLIC_ORIGIN=https://app.rillvane.trade` and `SITE_MODE=app`; the workspace then opens at `/`. Wallet sessions, API calls and WebSockets stay on that origin. Local `SITE_MODE=combined` keeps the app at `/app/`.
+
+The older Cloudflare deployment remains available as an alternative:
+
 ```sh
 npm run deploy:cloudflare
 ```

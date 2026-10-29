@@ -7,6 +7,7 @@ import {fileURLToPath} from 'node:url';
 import {requireRegistry} from './registry.mjs';
 import {loadKeypair} from './chain.mjs';
 import {createApplication as createOrigin} from './app.mjs';
+import {resolveSiteMode, resolveStaticRoute} from './site-routing.mjs';
 
 const root = fileURLToPath(new URL('../dist/', import.meta.url));
 const mime = {'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.woff':'font/woff','.woff2':'font/woff2','.json':'application/json'};
@@ -53,6 +54,7 @@ async function writeNodeResponse(response, req, res) {
 }
 
 export function createApplication(options = {}) {
+  const siteMode = resolveSiteMode(options.origin || 'http://localhost:8787', options.siteMode);
   const db = options.db || openDatabase(options.dbPath || 'rillvane.sqlite');
   const registry = options.registry || requireRegistry(options.registryPath, options.production);
   const keys = options.keys !== undefined ? options.keys : loadKeys(options.keysDir);
@@ -72,7 +74,14 @@ export function createApplication(options = {}) {
         }), req, res);
         return;
       }
-      let name = decodeURIComponent(new URL(req.url, app.origin()).pathname);
+      const url = new URL(req.url, app.origin());
+      const route = resolveStaticRoute(decodeURIComponent(url.pathname), url.search, siteMode);
+      if (route.redirect) {
+        res.writeHead(308, {location: route.redirect, 'cache-control': 'no-store'});
+        res.end();
+        return;
+      }
+      let name = route.pathname;
       if (name.endsWith('/')) name += 'index.html';
       const file = resolve(root, '.' + name);
       if (!file.startsWith(root.endsWith(sep) ? root : root + sep)) {

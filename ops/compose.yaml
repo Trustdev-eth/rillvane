@@ -9,13 +9,17 @@ services:
     security_opt: [no-new-privileges:true]
     tmpfs: [/tmp:size=16m,mode=1777]
     ports: [127.0.0.1:8787:8787]
-    volumes: [rillvane-data:/data]
+    volumes:
+      - rillvane-data:/data
+      - ./keys:/data/keys:ro
     environment:
       PUBLIC_ORIGIN: ${PUBLIC_ORIGIN:?Set the exact HTTPS origin}
+      SITE_MODE: app
       OPS_TOKEN: ${OPS_TOKEN:?Set a random operator token of at least 32 characters}
       EXECUTION_MODE: protocol
       SOLANA_RPC_URLS: ${SOLANA_RPC_URLS:?Set one or two dedicated HTTPS RPC URLs}
-      REGISTRY_PATH: /data/registry.json
+      REGISTRY_PATH: /app/ops/registry.json
+      KEYS_DIR: /data/keys
       WORKER_ENABLED: "true"
     mem_limit: 512m
     cpus: 1

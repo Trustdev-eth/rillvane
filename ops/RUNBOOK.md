@@ -4,6 +4,8 @@ This release packages the RLVN/USDC protocol origin: integer engine, wallet-sign
 
 ## Supported topology
 
+For `rillvane.trade` plus `app.rillvane.trade` on a VPS, follow [VPS hosting](../docs/VPS_HOSTING.md). The supplied Caddyfile serves the landing files separately and proxies the app subdomain to Node with `SITE_MODE=app`. Use `PUBLIC_ORIGIN=https://app.rillvane.trade` for wallet authentication.
+
 One Node.js 24 process on one host, local SQLite on a persistent block volume, integrated job worker, HTTPS reverse proxy. The API serves the same `dist/` frontend, preserving same-origin cookies. Never put this SQLite volume on NFS or run replicas against copied databases. `NODE_ENV=production` enables strict runtime configuration checks. `EXECUTION_MODE` must be `protocol`.
 
 The published static Site serves files only. It does **not** host this Node process. Deploy this package on a Node/container host with a persistent volume and use its HTTPS origin to reach wallet features. Do not configure a cross-origin API URL or add wildcard CORS.

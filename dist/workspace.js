@@ -1,4 +1,5 @@
 import {chartWindow,panChart,zoomChart} from './chart-navigation.js';
+import {initializeSiteLinks} from './site-links.js';
 import {captureMotion,finishRender,moveIndicator,animateChart,setBusy,showNotification,animateModal,initializeMotion} from './app-motion.js';
 import {candleChart,chartHover,orderBook,orderBookBody,marketStrip,paintLiveChart} from './market-ui.js';
 import {CHART_DEFAULTS,loadChartPreferences,saveChartPreferences,chartSettingsContent} from './chart-preferences.js';
@@ -6,6 +7,7 @@ import {backendSession,initializeBackend,quoteAction,submitIntent,claimFaucet,fe
 import {ASSETS,VAULTS,INITIAL_STATE,asset,money,number,compact,accountTotals,applyMarket,tokenIcon,tokenMark,pairIcons} from './workspace-data.js';
 const $=s=>document.querySelector(s), escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const clone=v=>JSON.parse(JSON.stringify(v));
+initializeSiteLinks();
 const NAV_EXPANDED_KEY='rillvane-nav-expanded';
 function readNavExpanded(){try{return localStorage.getItem(NAV_EXPANDED_KEY)!=='0';}catch{return false;}}
 let navMotionTimer;
