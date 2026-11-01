@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "check": "node --check dist/app.js && node --check dist/webgl.js && node --check dist/render-worker.js && node --check dist/buffer.js && node --check dist/bird.js && node --check dist/title-surface.js && node --check dist/workspace.js && node --check dist/workspace-data.js && node --check dist/market-ui.js && node --check dist/chart-navigation.js && node --check dist/protocol-notes.js && node --check dist/backend-client.js && node --check backend/server.mjs && node --check backend/ledger.mjs && node --check dist/chart-preferences.js && node --check dist/app-motion.js && node --check backend/config.mjs && node --check backend/database.mjs && node --check backend/rpc.mjs && node --check backend/transactions.mjs && node --check backend/backup.mjs && node --check backend/preflight.mjs && node --check backend/math.mjs && node --check backend/engine.mjs && node --check backend/protocol.mjs && node --check backend/workers.mjs && node --check backend/auth.mjs && node --check backend/registry.mjs && node --check backend/chain.mjs && node --check backend/websocket.mjs && node --check backend/stream.mjs && node --check scripts/bootstrap.mjs && node --check scripts/verify-flow.mjs && node --check scripts/deploy-devnet.mjs && node --check scripts/verify-devnet.mjs && node --check dist/site-links.js && node --check backend/site-routing.mjs && node --check dist/fog-trail.js && node --check dist/app-loading.js",
+    "check": "node --check dist/app.js && node --check dist/webgl.js && node --check dist/render-worker.js && node --check dist/buffer.js && node --check dist/bird.js && node --check dist/title-surface.js && node --check dist/workspace.js && node --check dist/workspace-data.js && node --check dist/market-ui.js && node --check dist/chart-navigation.js && node --check dist/protocol-notes.js && node --check dist/backend-client.js && node --check backend/server.mjs && node --check backend/ledger.mjs && node --check dist/chart-preferences.js && node --check dist/app-motion.js && node --check backend/config.mjs && node --check backend/database.mjs && node --check backend/rpc.mjs && node --check backend/transactions.mjs && node --check backend/backup.mjs && node --check backend/preflight.mjs && node --check backend/math.mjs && node --check backend/engine.mjs && node --check backend/protocol.mjs && node --check backend/workers.mjs && node --check backend/auth.mjs && node --check backend/registry.mjs && node --check backend/chain.mjs && node --check backend/websocket.mjs && node --check backend/stream.mjs && node --check scripts/bootstrap.mjs && node --check scripts/verify-flow.mjs && node --check scripts/deploy-devnet.mjs && node --check scripts/verify-devnet.mjs && node --check dist/site-links.js && node --check backend/site-routing.mjs && node --check dist/fog-trail.js && node --check dist/app-loading.js && node --check dist/launch-config.js && node --check dist/launch-countdown.js",
     "check:shaders": "python3 tools/check-shaders.py dist/webgl.js",
     "backend": "node backend/server.mjs",
     "bootstrap": "node scripts/bootstrap.mjs",
@@ -20,7 +20,8 @@
     "build:wallet": "node tools/build-wallet.mjs",
     "test:integration": "node tools/integration-browser-check.mjs",
     "predeploy:cloudflare": "npm run build:wallet && npm run check",
-    "start": "node --env-file-if-exists=.env backend/server.mjs"
+    "start": "node --env-file-if-exists=.env backend/server.mjs",
+    "test:countdown": "node --test tools/launch-countdown.test.mjs"
   },
   "engines": {
     "node": ">=24"

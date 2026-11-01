@@ -1,0 +1,22 @@
+/* One shared deadline, in the existing closing scene. */
+.has-launch-countdown .join-content{padding-top:calc(30vh + 24px)}
+.launch-countdown{margin-top:24px;display:flex;flex-direction:column;align-items:center;color:#f5f9ed}
+.launch-countdown-label{display:flex;align-items:center;gap:8px;margin:0 0 11px;font:500 11px/1.5 DM,Arial,sans-serif;letter-spacing:.075em;color:#d8edc7}
+.launch-countdown-label>span{width:5px;height:5px;background:#dfffaa;border-radius:50%}
+.launch-countdown-clock{display:flex;align-items:flex-start;justify-content:center;gap:21px;padding:12px 30px 13px;border:1px solid #ddf2c024;border-radius:16px;background:#12291e42}
+.launch-countdown-clock[hidden],.launch-countdown-note[hidden]{display:none}
+.launch-countdown-unit{min-width:58px;display:flex;flex-direction:column;align-items:center;gap:5px}
+.launch-countdown-unit strong{font:450 42px/1 DM,Arial,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.045em;color:#f5f9ed}
+.launch-countdown-unit>span{font:400 9px/1.4 DM,Arial,sans-serif;letter-spacing:.06em;color:#c0d5b6}
+.launch-countdown-separator{font:350 29px/1.15 DM,Arial,sans-serif;color:#dfffaa80;padding-top:3px}
+.launch-countdown-note{font:400 10px/1.5 DM,Arial,sans-serif;letter-spacing:.015em;color:#b8cdb0;margin:10px 0 0}
+.launch-countdown-note time{color:#d1e3c4}
+.has-launch-countdown .join-socials{margin-top:22px}
+.has-launch-countdown h2{font-size:clamp(44px,5.7vw,96px)}
+.launch-countdown[data-state="complete"]{padding:14px 20px;border-top:1px solid #ddf2c024}
+.launch-countdown[data-state="complete"] .launch-countdown-label{margin-bottom:0}
+@media(max-width:767px){.has-launch-countdown .join-content{padding-top:calc(31vh + 108px);justify-content:flex-start}.has-launch-countdown h2{font-size:clamp(34px,9vw,56px);max-width:none;white-space:normal}.has-launch-countdown .join-kicker{font-size:17px;margin-bottom:12px}.launch-countdown{margin-top:20px}.launch-countdown-clock{gap:15px;padding:10px 24px 11px}.launch-countdown-unit{min-width:49px}.launch-countdown-unit strong{font-size:35px}.launch-countdown-separator{font-size:25px}.launch-countdown-label{font-size:10px;margin-bottom:9px}.launch-countdown-note{font-size:9px}.has-launch-countdown .join-socials{margin-top:18px}}
+@media(max-height:700px) and (max-width:767px){.has-launch-countdown .join-content{padding-top:calc(31vh + 100px)}.has-launch-countdown h2{font-size:clamp(30px,8vw,38px)}.has-launch-countdown .join-kicker{font-size:15px;margin-bottom:9px}.launch-countdown{margin-top:14px}.launch-countdown-clock{padding:8px 22px}.launch-countdown-unit strong{font-size:30px}.launch-countdown-unit>span{font-size:8px}.launch-countdown-label{margin-bottom:7px}.launch-countdown-note{margin-top:6px}.has-launch-countdown .join-socials{margin-top:14px}}
+@media(max-height:600px) and (min-width:768px){.has-launch-countdown .join-content{padding-top:calc(44vh + 8px);justify-content:flex-start}.has-launch-countdown h2{font-size:6vh}.has-launch-countdown .join-kicker{display:none}.launch-countdown{margin-top:9px}.launch-countdown-clock{padding:6px 24px;gap:16px}.launch-countdown-unit strong{font-size:24px}.launch-countdown-unit{gap:3px}.launch-countdown-unit>span{font-size:8px}.launch-countdown-separator{font-size:20px}.launch-countdown-label{font-size:9px;margin-bottom:5px}.launch-countdown-note{margin-top:5px;font-size:9px}.has-launch-countdown .join-socials{margin-top:12px}}
+@media(max-height:420px){.has-launch-countdown footer{bottom:12px}.has-launch-countdown footer>span{display:none}}
+@media(max-height:500px) and (max-width:767px){.is-ending #stage,.is-ending .outro-portal-frame{visibility:hidden}.has-launch-countdown .join-content{padding-top:82px;justify-content:flex-start}.has-launch-countdown .join-kicker{display:none}.has-launch-countdown h2{font-size:30px}.launch-countdown{margin-top:10px}.launch-countdown-clock{padding:6px 22px}.launch-countdown-unit strong{font-size:25px}.launch-countdown-label{margin-bottom:5px}.launch-countdown-note{margin-top:5px}.has-launch-countdown .join-socials{margin-top:12px}}

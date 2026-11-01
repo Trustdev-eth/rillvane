@@ -1,5 +1,6 @@
 import {setupProtocolNotes,updateProtocolNotes} from './protocol-notes.js';
 import {initializeSiteLinks} from './site-links.js';
+import {initializeLaunchCountdown} from './launch-countdown.js';
 import * as T from './vendor/three.module.js';
 import {loadBuffer} from './buffer.js';
 import {TitleSurface} from './title-surface.js';
@@ -7,6 +8,7 @@ import {FogTrail} from './fog-trail.js';
 
 const $ = s => document.querySelector(s);
 initializeSiteLinks();
+initializeLaunchCountdown();
 const clamp = v => Math.max(0, Math.min(1, v));
 const fit = (v,a,b) => clamp((v-a)/(b-a));
 const smooth = v => v*v*(3-2*v);
